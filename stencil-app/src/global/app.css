@@ -1,0 +1,23 @@
+/*
+  Global App CSS
+  ----------------------
+  Use this file for styles that should be applied to all components.
+  For example, "font-family" within the "body" selector is a CSS property
+  most apps will want applied to all components.
+
+  Any global CSS variables should also be applied here.
+*/
+
+* {
+  box-sizing: border-box;
+  margin: unset;
+  font-size: 1rem;
+}
+
+html {
+  background-color: #f4f4f4;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}

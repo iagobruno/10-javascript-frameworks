@@ -1,0 +1,45 @@
+#create-transaction-form {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  margin: 6px 0 0;
+}
+
+#create-transaction-form .inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#create-transaction-form input {
+  appearance: none;
+  border: unset;
+}
+
+#create-transaction-form input[name=title] {
+  width: 100%;
+  padding: 12px 0px 12px 12px;
+}
+#create-transaction-form input[name=amount] {
+  width: 80px;
+  padding: 12px;
+}
+#create-transaction-form input[name=amount]::before {
+  content: 'R$ ';
+}
+#create-transaction-form button {
+  background-color: #007AFF;
+  border: none;
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+  padding: 10px;
+  font-size: 0.98em;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-helper-text {
+  opacity: .7;
+  font-size: 0.9em;
+  margin-top: 8px;
+}
