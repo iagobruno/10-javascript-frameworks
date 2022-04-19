@@ -34,6 +34,14 @@ html {
   margin-top: 6px;
 }
 
+.logo {
+  display: inline-block;
+  vertical-align: middle;
+  object-fit: cover;
+  height: 25px;
+  width: 25px;
+}
+
 .user-balance {
   margin-bottom: 12px;
 }

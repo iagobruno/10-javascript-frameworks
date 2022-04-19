@@ -2,7 +2,7 @@
 
 O mesmo aplicativo desenvolvido em 10 frameworks diferentes.
 
-1. Vanila
+1. <img src="./vanilla-app/public/javascript.png" style="width:25px; height:25px; vertical-align:middle; object-fit:cover;"> Vanila JS
 2. <img src="./react-app/src/react.svg" style="width:25px; height:25px; vertical-align:middle; object-fit:cover;"> React
 3. Vue
 4. Angular
