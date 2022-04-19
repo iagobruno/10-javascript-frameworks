@@ -1,6 +1,7 @@
 import { createEffect, For } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import type { Transaction } from '../../vanilla-app/src/types'
+import Form from './Form'
 
 export default function App() {
   const [state, setState] = createStore({
@@ -8,10 +9,6 @@ export default function App() {
     totalBalance: 0,
     incomeBalance: 0,
     outgoBalance: 0,
-  })
-  const [formState, setFormState] = createStore({
-    title: '',
-    amount: '',
   })
 
   createEffect(() => {
@@ -31,20 +28,16 @@ export default function App() {
     setState({ totalBalance, incomeBalance, outgoBalance })
   })
 
-  function handleSubmit(event: SubmitEvent) {
-    event.preventDefault()
-
-    const amountVal = Number(formState.amount)
-    if (amountVal === NaN) {
+  function addTransaction({ title, amount }: Transaction) {
+    if (amount === NaN) {
       return alert('Digite um número válido')
     }
 
     const newTransaction = {
-      title: formState.title,
-      amount: amountVal * 100,
+      title,
+      amount: amount * 100,
     }
     setState('transactions', [...state.transactions, newTransaction])
-    setFormState({ title: '', amount: '' })
   }
 
   return (
@@ -101,26 +94,7 @@ export default function App() {
 
       <section>
         <strong>Adicionar transação</strong>
-        <form id="create-transaction-form" onSubmit={handleSubmit}>
-          <div class="inputs">
-            <input
-              type="text"
-              name="title"
-              value={formState.title}
-              onInput={(e) => setFormState('title', e.currentTarget.value)}
-              placeholder="Título..."
-            />
-            <input
-              type="number"
-              name="amount"
-              value={formState.amount}
-              onInput={(e) => setFormState('amount', e.currentTarget.value)}
-              placeholder="Valor"
-              step="1"
-            />
-          </div>
-          <button type="submit">Adicionar</button>
-        </form>
+        <Form onSubmit={addTransaction} />
         <div class="form-helper-text">
           Use valores positivos para receitas e negativos para despesas.
         </div>

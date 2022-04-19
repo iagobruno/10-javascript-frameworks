@@ -1,11 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import logo from './react.svg'
 import type { Transaction } from '../../vanilla-app/src/types'
+import Form from './Form'
 
 export default function App() {
   const [transactions, setTransactions] = useState<Transaction[]>(initialState)
-  const [title, setTitle] = useState('')
-  const [amount, setAmount] = useState('')
 
   const { totalBalance, incomeBalance, outgoBalance } = useMemo(() => {
     let totalBalance = 0
@@ -24,21 +23,16 @@ export default function App() {
     return { totalBalance, incomeBalance, outgoBalance }
   }, [transactions])
 
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
-
-    const amountVal = Number(amount)
-    if (amountVal === NaN) {
+  function addTransaction({ title, amount }: Transaction) {
+    if (amount === NaN) {
       return alert('Digite um número válido')
     }
 
     const newTransaction = {
       title,
-      amount: amountVal * 100,
+      amount: amount * 100,
     }
     setTransactions([...transactions, newTransaction])
-    setTitle('')
-    setAmount('')
   }
 
   return (
@@ -93,26 +87,7 @@ export default function App() {
 
       <section>
         <strong>Adicionar transação</strong>
-        <form id="create-transaction-form" onSubmit={handleSubmit}>
-          <div className="inputs">
-            <input
-              type="text"
-              name="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Título..."
-            />
-            <input
-              type="number"
-              name="amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Valor"
-              step="1"
-            />
-          </div>
-          <button type="submit">Adicionar</button>
-        </form>
+        <Form onSubmit={addTransaction} />
         <div className="form-helper-text">
           Use valores positivos para receitas e negativos para despesas.
         </div>

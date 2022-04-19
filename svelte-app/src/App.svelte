@@ -2,14 +2,13 @@
   import { formatCurrency, initialState } from './helpers'
   import type { Transaction } from '../../vanilla-app/src/types'
   import logo from './svelte.png'
+  import Form from './Form.svelte'
 
   // STATES
   let transactions: Transaction[] = initialState
   let totalBalance = 0
   let incomeBalance = 0
   let outgoBalance = 0
-  let title = ''
-  let amount = ''
 
   $: {
     totalBalance = 0
@@ -26,27 +25,23 @@
     }
   }
 
-  function handleSubmit() {
-    const amountVal = Number(amount)
-    if (amountVal === NaN) {
+  function addTransaction({ title, amount }: Transaction) {
+    if (amount === NaN) {
       return alert('Digite um número válido')
     }
 
     const newTransaction = {
       title,
-      amount: amountVal * 100,
+      amount: amount * 100,
     }
     transactions = [...transactions, newTransaction]
-
-    title = ''
-    amount = ''
   }
 </script>
 
 <header>
   <h1 class="app-title">Controle financeiro</h1>
   <div class="app-description">
-    Feito com <img src={logo} class="logo" /> Svelte.
+    Feito com <img src={logo} class="logo" alt="" /> Svelte.
   </div>
 </header>
 
@@ -92,24 +87,7 @@
 
 <section>
   <strong>Adicionar transação</strong>
-  <form id="create-transaction-form" on:submit|preventDefault={handleSubmit}>
-    <div class="inputs">
-      <input
-        type="text"
-        name="title"
-        bind:value={title}
-        placeholder="Título..."
-      />
-      <input
-        type="number"
-        name="amount"
-        bind:value={amount}
-        placeholder="Valor"
-        step="1"
-      />
-    </div>
-    <button type="submit">Adicionar</button>
-  </form>
+  <Form on:submit={(e) => addTransaction(e.detail)} />
   <div class="form-helper-text">
     Use valores positivos para receitas e negativos para despesas.
   </div>
