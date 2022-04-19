@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/alpinejs.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AlpineJS App</title>
+  </head>
+  <body>
+    <div id="app" x-data="app_state">
+      <header>
+        <h1 class="app-title">Controle financeiro</h1>
+        <div class="app-description">Feito com <img src="/alpinejs.svg" class="logo" /> AlpineJS.</div>
+      </header>
+      <section>
+        <div class="user-balance">
+          <div class="user-balance-title">Saldo atual</div>
+          <div class="user-balance-value" x-text="formatCurrency(totalBalance)"></div>
+        </div>
+
+        <div class="balance-report">
+          <div class="income-balance">
+            <div class="balance-report-title">Receitas</div>
+            <div class="balance-report-value income-color" x-text="formatCurrency(incomeBalance)"></div>
+          </div>
+          <div class="outgo-balance">
+            <div class="balance-report-title">Despesas</div>
+            <div class="balance-report-value outgo-color" x-text="formatCurrency(outgoBalance)"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="transactions">
+        <strong>Transações</strong>
+        <ul class="transactions-list">
+          <template x-for="{ title, amount } in transactions">
+            <li>
+              <span x-text="title"></span>
+              <span
+                x-bind:class="amount >= 0 ? 'income-color' : 'outgo-color'"
+                x-text="`${amount >= 0 ? '+' : '-'} ${formatCurrency(Math.abs(amount))}`"
+              ></span>
+            </li>
+          </template>
+        </ul>
+      </section>
+
+      <section>
+        <strong>Adicionar transação</strong>
+        <form
+          id="create-transaction-form"
+          x-data="{ title: '', amount: '' }"
+          x-on:submit.prevent="addTransaction({ title, amount: amount * 100 }); title = ''; amount = '';"
+        >
+          <div class="inputs">
+            <input
+              type="text"
+              name="title"
+              x-model="title"
+              placeholder="Título..."
+            >
+            <input
+              type="number"
+              name="amount"
+              x-model="amount"
+              placeholder="Valor"
+              step="1"
+            >
+          </div>
+          <button type="submit">Adicionar</button>
+        </form>
+        <div class="form-helper-text">Use valores positivos para receitas e negativos para despesas.</div>
+      </section>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

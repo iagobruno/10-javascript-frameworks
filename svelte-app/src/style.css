@@ -37,7 +37,7 @@ html {
 .logo {
   display: inline-block;
   vertical-align: middle;
-  object-fit: cover;
+  object-fit: contain;
   height: 25px;
   width: 25px;
 }
