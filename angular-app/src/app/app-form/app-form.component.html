@@ -1,0 +1,18 @@
+<form id="create-transaction-form" (submit)="handleSubmit">
+  <div className="inputs">
+    <input
+      type="text"
+      name="title"
+      [(ngModel)]="title"
+      placeholder="Título..."
+    />
+    <input
+      type="number"
+      name="amount"
+      [(ngModel)]="amount"
+      placeholder="Valor"
+      step="1"
+    />
+  </div>
+  <button type="submit">Adicionar</button>
+</form>
